@@ -1,0 +1,12 @@
+@charset "UTF-8";
+
+table {
+	width:100%;
+	border:1px solid gray;
+	border-collapse: collapse;
+}
+
+td,th {
+	white-space: nowrap;
+	border:1px solid gray;
+}
