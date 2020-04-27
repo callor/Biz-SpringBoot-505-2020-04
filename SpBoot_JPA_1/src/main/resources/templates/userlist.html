@@ -42,16 +42,19 @@ $(function(){
 		<th>Email</th>
 		<th>전화번호</th>
 		<th>주소</th>
+		<th>비고</th>
 	</tr>
 	<tr th:each="user : ${userList}" 
-				class="u_tr" 
-				th:attr="data-id=${user.id}"
-				th:data-user-id="${user.id}"
-		>
-		<td th:text="${user.username}">이름</td>
+		th:data-user-id="${user.id}">
+		<td th:text="${user.username}"
+				class="u_tr"
+				th:attr="data-user-id=${user.id}" 
+				>이름</td>
 		<td th:text="${user.email}">Email</td>
 		<td th:text="${user.phone}">전화번호</td>
 		<td th:text="${user.address}">주소</td>
+		<td th:data-user-id="${user.id}">
+			<a th:href="@{/user/delete(id=${user.id})}">삭제</a></td>
 	</tr>
 </table>
 <button id="btn_insert">MEMER 등록</button>

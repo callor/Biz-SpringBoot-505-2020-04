@@ -16,7 +16,11 @@ public class UserService {
 	
 	private final UserRepository userDao;
 	
-	public UserVO insert(UserVO userVO) {
+	/*
+	 * JpaRepository를 사용할 경우
+	 * insert와 update는 save() method를 사용하여 수행
+	 */
+	public UserVO save(UserVO userVO) {
 		
 		/*
 		 * repository.save(VO)
@@ -35,15 +39,32 @@ public class UserService {
 	
 	}
 
+	/*
+	 * findById를 실행하고 나면 UserVO를 받을 수 있다.
+	 * findById를 실행했을때 결과값이 없으면 null을 return한다
+	 * 
+	 * 이런 상황이 되면
+	 * NullPointerExceiptio이 발생할수 있다
+	 * 
+	 * OPtional(wrapper class)로 VO 객체를 감싸게 되면
+	 * NullPointerException을 회피할 수 있다.
+	 * 
+	 * Java 1.8 이상에 새로 도입된 Wrapper 클래스이다
+	 * 
+	 * 필요한 VO 객체를 추출하려면
+	 * optVO.get() method를 사용하여야 한다.
+	 * 
+	 */
 	public Optional<UserVO> findById(long userId) {
- 
+
 		Optional<UserVO> userVO = userDao.findById(userId);
 		return userVO;
 	
 	}
-	
-	
-	
-	
+
+	public void delete(long userId) {
+		userDao.deleteById(userId);
+	}
+
 
 }

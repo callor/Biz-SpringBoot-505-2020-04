@@ -24,8 +24,9 @@ public class UserController {
 	private final UserService uService;
 	
 	@RequestMapping(value="/insert",method=RequestMethod.GET)
-	public String user() {
-		return "user";
+	public String user(Model model) {
+		model.addAttribute("user", new UserVO());
+		return "userform";
 	}
 
 	/*
@@ -37,7 +38,7 @@ public class UserController {
 	public String user(UserVO userVO) {
 		log.debug(userVO.toString());
 		
-		UserVO vo = uService.insert(userVO);
+		UserVO vo = uService.save(userVO);
 		return "redirect:/user/list";
 	}
 	
@@ -62,12 +63,30 @@ public class UserController {
 		}
 		Optional<UserVO> userVO = uService.findById(userId);
 		model.addAttribute("user",userVO.get());
-		return "user";
-		
-		
+		return "userform";
 	}
 	
+	@RequestMapping(value="/update",method=RequestMethod.POST)
+	public String update(UserVO userVO) {
+		UserVO vo = uService.save(userVO);
+		return "redirect:/user/list";
+	}
+
 	
+	@RequestMapping(value="/delete",method=RequestMethod.GET)
+	public String delete(String id) {
+		
+		long userId = 0;
+		try {
+			userId = Long.valueOf(id);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		uService.delete(userId);
+		return "redirect:/user/list";
+	
+	}
 }
 
 
