@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head th:fragment="listHead">
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style>
+ table {
+ 	border:1px solid blue;
+ 	border-collapse: collapse;
+ 	width: 90%;
+ 	margin:10px auto;
+ }
+ 
+ td,th {
+ 	white-space: nowrap;
+ 	border:1px solid blue;
+ }
+
+</style>
+<script>
+$(function(){
+	$(document).on("click","#btn_insert",function(){
+		document.location.href = "/user/insert";
+	})
+	
+	$(document).on("click",".u_tr",function(){
+		// let id = $(this).attr("data-user-id")
+		let id = $(this).data("user-id")
+		// alert(id)
+		document.location.href="/user/update?id=" + id
+	})
+})
+
+</script>
+
+</head>
+<body th:fragment="listBody">
+<h2>MEMBER List</h2>
+<table>
+	<tr>
+		<th>이름</th>
+		<th>Email</th>
+		<th>전화번호</th>
+		<th>주소</th>
+	</tr>
+	<tr th:each="user : ${userList}" 
+				class="u_tr" 
+				th:attr="data-id=${user.id}"
+				th:data-user-id="${user.id}"
+		>
+		<td th:text="${user.username}">이름</td>
+		<td th:text="${user.email}">Email</td>
+		<td th:text="${user.phone}">전화번호</td>
+		<td th:text="${user.address}">주소</td>
+	</tr>
+</table>
+<button id="btn_insert">MEMER 등록</button>
+
+</body>
+</html>
