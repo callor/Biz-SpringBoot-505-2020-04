@@ -2,8 +2,9 @@
 	<ul class="pagination"
 		th:with="start=${T(Math).floor(bookList.number/10)*10 + 1},
                 last=(${start + 9 < bookList.totalPages ? 
-                	start + 9 : 
-                		bookList.totalPages == 0 ? 1 : bookList.totalPages })">
+                	start + 9 
+                		: bookList.totalPages == 0 ? 1 
+                			: bookList.totalPages })">
 		<li class="page-item">
 		<a th:href="@{/book/pagelist(page=1)}" 
 				class="page-link">처음</a>
