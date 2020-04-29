@@ -1,0 +1,52 @@
+<article class="center">
+	<ul class="pagination justify-content-center"
+		th:with="start=${T(Math)
+			.floor(bbsList.number/10)*10 +1},
+			last=(${start + 9 < bbsList.totalPages ?
+					start + 9
+			: bbsList.totalPages == 0 ? 1
+				: bbsList.totalPages})
+		">
+		<li class="page-item">
+			<a th:href="@{/bbs/list(page=1)}" class="page-link">처음</a>
+		</li>
+		
+		<li  th:class="${bbsList.first} ? 
+						'page-item disabled' : 
+						'page-item' "  >
+						
+			<a th:href="@{/bbs/list(page=${bbsList.number})}" 
+					class="page-link">&lt;</a>
+		</li>
+		
+		<li th:class="${page == bbsList.number + 1} ? 
+				'page-item active' : 'page-item' "  
+				th:each="page : 
+				${#numbers.sequence(start,last)}">
+			<a class="page-link" 
+				th:href="@{/bbs/list(page=${page})}" 
+				th:text="${page}"></a>
+		</li>
+		
+		<li  th:class="${bbsList.last} ? 
+						'page-item disabled' : 
+						'page-item' "  >
+			<a th:href="@{/bbs/list(page=${bbsList.number + 2})}" 
+				class="page-link">&gt;</a>
+		</li>
+		
+		<li class="page-item">
+			<a th:href="@{/bbs/list(page=${bbsList.totalPages})}" 
+					class="page-link">끝</a>
+		</li>
+		
+	</ul>
+</article>
+
+
+
+
+
+
+
+

@@ -2,6 +2,19 @@
 <html>
 <head>
 <th:block th:include="include/head"/>
+<script>
+$(function(){
+	$(document).on("blur","#username",function(){
+		let id = $(this).val()
+		if(id == "") {
+			$("#m_username").text("<b>* USER NAME은 " 
+					+ " 반드시 입력해야 합니다 </b>")
+		}
+	})
+	
+})
+
+</script>
 </head>
 <body>
 <h2>회원가입 form</h2>
@@ -13,6 +26,7 @@
 	<div>
 		<label for='username'>USERNAME</label>
 		<input th:field="*{username}" placeholder="USER NAME 입력">
+		<div id="m_username"></div>
 	</div>
 	<div>
 		<label for='password'>PASSWORD</label>
