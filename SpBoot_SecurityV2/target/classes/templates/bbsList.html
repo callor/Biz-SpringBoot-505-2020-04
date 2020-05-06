@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+<th:block th:include="include/head"/>
+</head>
+<body>
+<h2>페이지 BBS 구현</h2>
+<nav th:replace="include/layout :: nav" />
+<table class="table table-all">
+	<tr>
+		<th>작성일자</th>
+		<th>작성자</th>
+		<th>제목</th>
+	</tr>
+	<tr th:each="bbs : ${bbsList}">
+		<td th:text="${bbs.bbsDate}">작성일자</td>
+		<td th:text="${bbs.bbsAuth}">작성자</td>
+		<td th:text="${bbs.bbsTitle}">제목</td>
+	</tr>
+</table>
+<hr/>
+<th:block th:include="include/page"/>
+
+<footer th:replace="include/layout :: footer" />
+</body>
+</html>
+
+
+
+
+
