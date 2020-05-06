@@ -6,6 +6,7 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.thymeleaf.extras.springsecurity5.dialect.SpringSecurityDialect;
@@ -45,6 +46,19 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 	protected void configure(HttpSecurity httpSecurity) throws Exception {
 		// TODO Auto-generated method stub
 		// super.configure(http);
+		
+		// react와 연동할때 security 설정
+		httpSecurity
+		.csrf().disable()
+		
+		// 권한이 없을때 자동으로 login form이 뜨는 것을 금지
+		.httpBasic().disable()
+		.sessionManagement()
+		
+		// session을 사용한 security 정지 정책 실행
+		.sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+		
+		
 		httpSecurity.authorizeRequests()
 			.antMatchers("/hello").permitAll()
 			.antMatchers("/login").permitAll()

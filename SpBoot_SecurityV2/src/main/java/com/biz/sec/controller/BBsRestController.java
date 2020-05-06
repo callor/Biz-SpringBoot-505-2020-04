@@ -11,7 +11,9 @@ import com.biz.sec.domain.BBsVO;
 import com.biz.sec.service.BBsService;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 /*
  * REST controller
  * spring REST Full API를 만들기 위한 Controller
@@ -30,6 +32,17 @@ public class BBsRestController {
 	public List<BBsVO> getBBsList() {
 		List<BBsVO> bbsList = bService.getBBsList();
 		return bbsList;
+	}
+	
+	
+	@RequestMapping(value="/insert",method=RequestMethod.POST)
+	@CrossOrigin(origins = "http://localhost:3000")
+	public String insert(BBsVO bbsVO) {
+		
+		log.debug(bbsVO.toString());
+		bService.save(bbsVO);
+		
+		return "OK";
 	}
 
 }
