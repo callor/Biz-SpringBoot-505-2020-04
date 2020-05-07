@@ -52,6 +52,11 @@ public class BBsService {
 	
 	}
 	
+	public BBsVO insert(BBsVO bbsVO) {
+		return bDao.save(bbsVO);
+	}
+	
+	
 }
 
 
