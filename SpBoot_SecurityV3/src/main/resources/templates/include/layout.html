@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns="http://www.thymeleaf.org">
+
+	<nav th:fragment="nav" class="container-fluid bg-dark">
+		<ul class="nav">
+			<li class="nav-item"><a th:href="@{/}" class="nav-link">Home</a></li>
+			<li class="nav-item"><a th:href="@{/}" class="nav-link">도서정보</a></li>
+			<li class="nav-item"><a th:href="@{/}" class="nav-link">EMS</a></li>
+			<li class="nav-item" sec:authorize="isAuthenticated()">
+				<a href="javascript:void(0)" 
+					th:data-csrf="${_csrf.parameterName}"
+					th:data-token="${_csrf.token}"
+				class="nav-link logout">로그아웃</a>
+			</li>
+
+			<li class="nav-item" sec:authorize="isAuthenticated()">
+				<a th:href="@{/logout}"
+					th:text="${#authentication.principal.username}" 
+					class="nav-link">USER NAME</a>
+			</li>
+			<li class="nav-item" 
+					sec:authorize="hasAnyRole('ADMIN','USER')">
+				<a th:href="@{/logout}"
+					th:text="${#authentication.principal.username}" 
+					class="nav-link">has Any Role</a>
+			</li>
+
+			<li class="nav-item" sec:authorize="hasRole('ROLE_ADMIN')">
+				<a th:href="@{/admin}" class="nav-link">관리자</a>
+			</li>
+			
+			<li class="nav-item" sec:authorize="!isAuthenticated()">
+				<a th:href="@{/user/login}" class="nav-link">로그인</a>
+			</li>
+			<li class="nav-item" sec:authorize="!isAuthenticated()">
+				<a th:href="@{/user/join}" class="nav-link">회원가입</a>
+			</li>
+		</ul>
+	</nav>
+	
+	<footer th:fragment="footer" 
+			class="container-fluid text-center bg-primary">
+		<address class="text-white">Copy &copy; callor@callor.com</address>
+	</footer>
+</html>
