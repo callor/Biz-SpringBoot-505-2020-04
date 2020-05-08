@@ -1,8 +1,10 @@
 package com.biz.sec.controller;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -36,14 +38,48 @@ public class BBsRestController {
 	
 	@RequestMapping(value="/insert",method=RequestMethod.POST)
 	@CrossOrigin(origins = "http://localhost:3000")
-	public String insert(BBsVO bbsVO) {
+	public BBsVO insert(BBsVO bbsVO) {
 		
 		log.debug("게시판 데이터: " + bbsVO);
-		bService.insert(bbsVO);
-		return "OK";
+		bbsVO = bService.insert(bbsVO);
+		return bbsVO;
 	
 	}
 	
+	@RequestMapping(value="/detail",method=RequestMethod.GET)
+	@CrossOrigin(origins = "http://localhost:3000")
+	public BBsVO getDetail(String bbsid) {
+		
+		log.debug("게시판 ID: " +  bbsid);
+		long id = 0;
+		try {
+			id = Long.valueOf(bbsid);	
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		Optional<BBsVO> optBBsVO = bService.findById(id);
+		return optBBsVO.get();
+		
+	}
+	
+	@RequestMapping(value="/delete/{bbsid}",method=RequestMethod.GET)
+	@CrossOrigin(origins = "http://localhost:3000")
+	public String getDelete(@PathVariable("bbsid") String bbsid) {
+		
+		log.debug("게시판 삭제:" + bbsid);
+		long id = 0;
+		try {
+			id = Long.valueOf(bbsid);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		bService.delete(id);
+		
+		return "OK";
+		
+	}
+
 	
 }
 
